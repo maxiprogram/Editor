@@ -1,13 +1,14 @@
 #ifndef TESTGL_H
 #define TESTGL_H
 
-#include <QOpenGLWidget>
+#include <QtOpenGL/QGLWidget>
+//#include <QOpenGLWidget>
 #include <QOpenGLFunctions>
 
-class testgl:public QOpenGLWidget, public QOpenGLFunctions
+class testgl:public QGLWidget, public QOpenGLFunctions
 {
 public:
-    testgl(QWidget *parent) : QOpenGLWidget(parent) { }
+    testgl(QWidget *parent) : QGLWidget(parent) { }
 
 protected:
     void initializeGL();

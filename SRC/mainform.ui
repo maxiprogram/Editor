@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>749</width>
-    <height>482</height>
+    <height>682</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,7 +39,7 @@
      <x>0</x>
      <y>0</y>
      <width>749</width>
-     <height>27</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
@@ -85,7 +85,43 @@
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents_5"/>
+   <widget class="QWidget" name="dockWidgetContents_5">
+    <layout class="QVBoxLayout" name="verticalLayout_4">
+     <item>
+      <widget class="QTreeWidget" name="treeWidget_shader">
+       <column>
+        <property name="text">
+         <string>ID key</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Путь вершинного шейдера</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Путь фрагментного шейдера</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_add_shader">
+       <property name="text">
+        <string>Добавить шейдер</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_del_shader">
+       <property name="text">
+        <string>Удалить шейдер</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QDockWidget" name="panel_mesh">
    <property name="windowTitle">
@@ -94,7 +130,38 @@
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents_6"/>
+   <widget class="QWidget" name="dockWidgetContents_6">
+    <layout class="QVBoxLayout" name="verticalLayout_5">
+     <item>
+      <widget class="QTreeWidget" name="treeWidget_mesh">
+       <column>
+        <property name="text">
+         <string>ID key</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Путь</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_add_mesh">
+       <property name="text">
+        <string>Добавить мешь</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_del_mesh">
+       <property name="text">
+        <string>Удалить мешь</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QDockWidget" name="panel_texture">
    <property name="windowTitle">
@@ -106,7 +173,18 @@
    <widget class="QWidget" name="dockWidgetContents_7">
     <layout class="QVBoxLayout" name="verticalLayout_3">
      <item>
-      <widget class="QListWidget" name="listWidget_texture"/>
+      <widget class="QTreeWidget" name="treeWidget_texture">
+       <column>
+        <property name="text">
+         <string>ID key</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Путь</string>
+        </property>
+       </column>
+      </widget>
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_add_texture">
@@ -132,7 +210,48 @@
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents_8"/>
+   <widget class="QWidget" name="dockWidgetContents_8">
+    <layout class="QVBoxLayout" name="verticalLayout_6">
+     <item>
+      <widget class="QTreeWidget" name="treeWidget_sprite">
+       <column>
+        <property name="text">
+         <string>ID key</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>ID key shader</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>ID key mesh</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>ID key texture</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_add_sprite">
+       <property name="text">
+        <string>Добавить спрайт</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_del_sprite">
+       <property name="text">
+        <string>Удалить спрайт</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QDockWidget" name="panel_gameobject">
    <property name="windowTitle">
