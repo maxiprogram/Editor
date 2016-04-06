@@ -9,7 +9,7 @@
 #include "previewtextureform.h"
 
 #include "testgl.h"
-#include "E:\Projects\For_Git\PacManRun\PacManRun\SRC\Engine\resources.h"
+#include "/home/maxiprogram/Project/ForGit/PacManRun/PacManRun/SRC/Engine/resources.h"
 
 namespace Ui {
 class MainForm;
@@ -47,6 +47,10 @@ private slots:
     void on_pushButton_add_shader_clicked();
 
     void on_pushButton_del_shader_clicked();
+
+    void on_pushButton_add_mesh_clicked();
+
+    void on_pushButton_del_mesh_clicked();
 
 private:
     Ui::MainForm *ui;

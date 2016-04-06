@@ -148,3 +148,27 @@ void MainForm::on_pushButton_del_shader_clicked()
         delete ui->treeWidget_shader->currentItem();
     }
 }
+
+//Добавление меша в панель мешей
+void MainForm::on_pushButton_add_mesh_clicked()
+{
+
+    Mesh* mesh = new Mesh();
+    mesh->Create();
+    int key = ui->treeWidget_mesh->topLevelItemCount();
+    Resources::MESH()->Add(key, mesh);
+    QTreeWidgetItem* item = new QTreeWidgetItem(ui->treeWidget_mesh);
+    item->setText(0, QString::number(key));
+    ui->treeWidget_mesh->insertTopLevelItem(ui->treeWidget_mesh->topLevelItemCount(), item);
+}
+
+//Удаление меша из панели мешей
+void MainForm::on_pushButton_del_mesh_clicked()
+{
+    if (ui->treeWidget_mesh->topLevelItemCount()>0)
+    {
+        int key = ui->treeWidget_mesh->currentItem()->text(0).toInt();
+        Resources::MESH()->Delete(key);
+        delete ui->treeWidget_mesh->currentItem();
+    }
+}
