@@ -5,6 +5,8 @@
 //#include <QOpenGLWidget>
 #include <QOpenGLFunctions>
 
+#include "E:\Projects\For_Git\PacManRun\PacManRun\SRC\Engine\resources.h"
+
 class testgl:public QGLWidget, public QOpenGLFunctions
 {
 public:
