@@ -34,6 +34,9 @@ void PreviewShaderForm::on_pushButton_cancel_clicked()
 
 void PreviewShaderForm::showEvent(QShowEvent* event)
 {
+    ui->textEdit_vert->clear();
+    ui->textEdit_frag->clear();
+
     QFile file(path_vert);
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     if (!file.isOpen())

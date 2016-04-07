@@ -17,6 +17,21 @@ MainForm::~MainForm()
     delete ui;
 }
 
+void MainForm::onSendTreeShader()
+{
+    emit send_tree_shader(ui->treeWidget_shader);
+}
+
+void MainForm::onSendTreeMesh()
+{
+    emit send_tree_mesh(ui->treeWidget_mesh);
+}
+
+void MainForm::onSendTreeTexture()
+{
+    emit send_tree_texture(ui->treeWidget_texture);
+}
+
 void MainForm::on_exit_triggered()
 {
     this->close();
@@ -65,52 +80,6 @@ void MainForm::on_pushButton_add_property_clicked()
 void MainForm::on_pushButton_del_property_clicked()
 {
     delete ui->treeWidget_property->currentItem();
-}
-
-//Добавление текстуры в панель текстур
-void MainForm::on_pushButton_add_texture_clicked()
-{
-    QString filename = QFileDialog::getOpenFileName(this, "Выбор файла текстуры", ".", "Изображение (*.png *.jpg *.jpeg *.bmp);;Все файлы (*.*)");
-    if (filename=="")
-        return;
-    Texture* tex = new Texture;
-    bool flag = tex->Load(filename);
-    if (!flag)
-    {
-        QMessageBox::warning(this, "Добавление текстуры", "Не удалось открыть текстуру!");
-        delete tex;
-        return;
-    }
-
-    tex->Create();
-    int key = ui->treeWidget_texture->topLevelItemCount();
-    Resources::TEXTURE()->Add(key, tex);
-    QTreeWidgetItem* item = new QTreeWidgetItem(ui->treeWidget_texture);
-    item->setText(0, QString::number(key));
-    item->setText(1, filename);
-    ui->treeWidget_texture->insertTopLevelItem(ui->treeWidget_texture->topLevelItemCount(), item);
-
-}
-
-//Удаление текстуры из панели текстуры
-void MainForm::on_pushButton_del_texture_clicked()
-{
-    if (ui->treeWidget_texture->topLevelItemCount()>0)
-    {
-        int key = ui->treeWidget_texture->currentItem()->text(0).toInt();
-        Resources::TEXTURE()->Delete(key);
-        delete ui->treeWidget_texture->currentItem();
-    }
-}
-
-//Двойной щелчок текстуры - просмотр изображения
-void MainForm::on_treeWidget_texture_itemDoubleClicked(QTreeWidgetItem *item, int column)
-{
-    PreviewTextureForm* f = new PreviewTextureForm(this);
-    f->setWindowTitle("Просмотр текстуры: "+item->text(1));
-    f->SetKey(item->text(0));
-    f->SetPath(item->text(1));
-    f->show();
 }
 
 //Добавление шейдера в панель шейдеров
@@ -177,6 +146,80 @@ void MainForm::on_pushButton_del_mesh_clicked()
     }
 }
 
+//Добавление текстуры в панель текстур
+void MainForm::on_pushButton_add_texture_clicked()
+{
+    QString filename = QFileDialog::getOpenFileName(this, "Выбор файла текстуры", ".", "Изображение (*.png *.jpg *.jpeg *.bmp);;Все файлы (*.*)");
+    if (filename=="")
+        return;
+    Texture* tex = new Texture;
+    bool flag = tex->Load(filename);
+    if (!flag)
+    {
+        QMessageBox::warning(this, "Добавление текстуры", "Не удалось открыть текстуру!");
+        delete tex;
+        return;
+    }
+
+    tex->Create();
+    int key = ui->treeWidget_texture->topLevelItemCount();
+    Resources::TEXTURE()->Add(key, tex);
+    QTreeWidgetItem* item = new QTreeWidgetItem(ui->treeWidget_texture);
+    item->setText(0, QString::number(key));
+    item->setText(1, filename);
+    ui->treeWidget_texture->insertTopLevelItem(ui->treeWidget_texture->topLevelItemCount(), item);
+
+}
+
+//Удаление текстуры из панели текстуры
+void MainForm::on_pushButton_del_texture_clicked()
+{
+    if (ui->treeWidget_texture->topLevelItemCount()>0)
+    {
+        int key = ui->treeWidget_texture->currentItem()->text(0).toInt();
+        Resources::TEXTURE()->Delete(key);
+        delete ui->treeWidget_texture->currentItem();
+    }
+}
+
+//Добавление спрайта в панель спрайтов
+void MainForm::on_pushButton_add_sprite_clicked()
+{
+    AddSpriteForm* f = new AddSpriteForm;
+    connect(f, SIGNAL(get_tree_shader()), this, SLOT(onSendTreeShader()));
+    connect(this, SIGNAL(send_tree_shader(QTreeWidget*)), f, SLOT(onRecievTreeShader(QTreeWidget*)));
+    connect(f, SIGNAL(get_tree_mesh()), this, SLOT(onSendTreeMesh()));
+    connect(this, SIGNAL(send_tree_mesh(QTreeWidget*)), f, SLOT(onRecievTreeMesh(QTreeWidget*)));
+    connect(f, SIGNAL(get_tree_texture()), this, SLOT(onSendTreeTexture()));
+    connect(this, SIGNAL(send_tree_texture(QTreeWidget*)), f, SLOT(onRecievTreeTexture(QTreeWidget*)));
+    connect(f, SIGNAL(send_tree_sprite(QString,QString,QString,QString)), this, SLOT(onAppendTreeSprite(QString,QString,QString,QString)));
+    f->setWindowTitle("Добавление спрайта");
+    f->SetKey(QString::number(ui->treeWidget_sprite->topLevelItemCount()));
+    f->show();
+}
+
+//Добавление в панель спрайтов
+void MainForm::onAppendTreeSprite(QString key_sprite, QString key_shader, QString key_mesh, QString key_texture)
+{
+    QTreeWidgetItem* item = new QTreeWidgetItem(ui->treeWidget_sprite);
+    item->setText(0, key_sprite);
+    item->setText(1, key_shader);
+    item->setText(2, key_mesh);
+    item->setText(3, key_texture);
+    ui->treeWidget_sprite->insertTopLevelItem(ui->treeWidget_sprite->topLevelItemCount(), item);
+}
+
+//Удаление спрайта из панели спрайтов
+void MainForm::on_pushButton_del_sprite_clicked()
+{
+    if (ui->treeWidget_sprite->topLevelItemCount()>0)
+    {
+        int key = ui->treeWidget_sprite->currentItem()->text(0).toInt();
+        Resources::SPRITE()->Delete(key);
+        delete ui->treeWidget_sprite->currentItem();
+    }
+}
+
 //Двойной щелчок шейдеры - просмотр шейдера
 void MainForm::on_treeWidget_shader_itemDoubleClicked(QTreeWidgetItem *item, int column)
 {
@@ -196,3 +239,20 @@ void MainForm::on_treeWidget_mesh_itemDoubleClicked(QTreeWidgetItem *item, int c
     f->SetKey(item->text(0));
     f->show();
 }
+
+//Двойной щелчок текстуры - просмотр изображения
+void MainForm::on_treeWidget_texture_itemDoubleClicked(QTreeWidgetItem *item, int column)
+{
+    PreviewTextureForm* f = new PreviewTextureForm(this);
+    f->setWindowTitle("Просмотр текстуры: "+item->text(1));
+    f->SetKey(item->text(0));
+    f->SetPath(item->text(1));
+    f->show();
+}
+
+//Двойной щелчок спрайты - просмотр спрайта
+void MainForm::on_treeWidget_sprite_itemDoubleClicked(QTreeWidgetItem *item, int column)
+{
+
+}
+

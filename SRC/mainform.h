@@ -9,6 +9,7 @@
 #include "previewtextureform.h"
 #include "previewshaderform.h"
 #include "previewmeshform.h"
+#include "addspriteform.h"
 
 #include "testgl.h"
 
@@ -31,6 +32,12 @@ class MainForm : public QMainWindow
 public:
     explicit MainForm(QWidget *parent = 0);
     ~MainForm();
+
+public slots:
+    void onSendTreeShader();
+    void onSendTreeMesh();
+    void onSendTreeTexture();
+    void onAppendTreeSprite(QString key_sprite, QString key_shader, QString key_mesh, QString key_texture);
 
 private slots:
     void on_exit_triggered();
@@ -64,6 +71,17 @@ private slots:
     void on_treeWidget_shader_itemDoubleClicked(QTreeWidgetItem *item, int column);
 
     void on_treeWidget_mesh_itemDoubleClicked(QTreeWidgetItem *item, int column);
+
+    void on_treeWidget_sprite_itemDoubleClicked(QTreeWidgetItem *item, int column);
+
+    void on_pushButton_add_sprite_clicked();
+
+    void on_pushButton_del_sprite_clicked();
+
+signals:
+    void send_tree_shader(QTreeWidget* tree_shader);
+    void send_tree_mesh(QTreeWidget* tree_mesh);
+    void send_tree_texture(QTreeWidget* tree_texture);
 
 private:
     Ui::MainForm *ui;

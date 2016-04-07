@@ -45,7 +45,8 @@ SOURCES += main.cpp\
     ../../../PacManRun/PacManRun/SRC/Engine/transformer.cpp \
     previewtextureform.cpp \
     previewshaderform.cpp \
-    previewmeshform.cpp
+    previewmeshform.cpp \
+    addspriteform.cpp
 
 HEADERS  += mainform.h \
     testgl.h \
@@ -80,9 +81,11 @@ HEADERS  += mainform.h \
     ../../../PacManRun/PacManRun/SRC/Engine/transformer.h \
     previewtextureform.h \
     previewshaderform.h \
-    previewmeshform.h
+    previewmeshform.h \
+    addspriteform.h
 
 FORMS    += mainform.ui \
     previewtextureform.ui \
     previewshaderform.ui \
-    previewmeshform.ui
+    previewmeshform.ui \
+    addspriteform.ui

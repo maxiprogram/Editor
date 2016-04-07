@@ -37,3 +37,8 @@ void PreviewTextureForm::showEvent(QShowEvent * event)
                             "\nШирина: "+QString::number(image.width())+
                             "\nВысота: "+QString::number(image.height()));
 }
+
+void PreviewTextureForm::on_pushButton_close_clicked()
+{
+    this->close();
+}

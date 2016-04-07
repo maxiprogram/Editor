@@ -20,6 +20,9 @@ public:
     void SetPath(QString path);
     void SetKey(QString key);
 
+private slots:
+    void on_pushButton_close_clicked();
+
 private:
     Ui::PreviewTextureForm *ui;
     QString key;

@@ -25,6 +25,8 @@ void PreviewMeshForm::on_pushButton_cancel_clicked()
 
 void PreviewMeshForm::showEvent(QShowEvent* event)
 {
+    ui->textEdit_mesh->clear();
+
     float* mesh =Resources::MESH()->GetValue(key.toInt())->GetVertex();
     int i = 0;
     while(i<Resources::MESH()->GetValue(key.toInt())->GetCountVertex()*3)
