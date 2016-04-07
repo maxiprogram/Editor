@@ -5,7 +5,13 @@
 //#include <QOpenGLWidget>
 #include <QOpenGLFunctions>
 
-#include "/home/maxiprogram/Project/ForGit/PacManRun/PacManRun/SRC/Engine/resources.h"
+#ifdef Q_OS_LINUX
+    #include "/home/maxiprogram/Project/ForGit/PacManRun/PacManRun/SRC/Engine/resources.h"
+#endif
+
+#ifdef Q_OS_WIN32
+    #include "E:\Projects\For_Git\PacManRun\PacManRun\SRC\Engine\resources.h"
+#endif
 
 class testgl:public QGLWidget, public QOpenGLFunctions
 {

@@ -6,6 +6,10 @@ MainForm::MainForm(QWidget *parent) :
     ui(new Ui::MainForm)
 {
     ui->setupUi(this);
+    ui->panel_shader->setVisible(false);
+    ui->panel_mesh->setVisible(false);
+    ui->panel_texture->setVisible(false);
+    ui->panel_sprite->setVisible(false);
 }
 
 MainForm::~MainForm()
@@ -99,7 +103,7 @@ void MainForm::on_pushButton_del_texture_clicked()
     }
 }
 
-//Двойной щелчок - просмотр изображения
+//Двойной щелчок текстуры - просмотр изображения
 void MainForm::on_treeWidget_texture_itemDoubleClicked(QTreeWidgetItem *item, int column)
 {
     PreviewTextureForm* f = new PreviewTextureForm(this);
@@ -171,4 +175,24 @@ void MainForm::on_pushButton_del_mesh_clicked()
         Resources::MESH()->Delete(key);
         delete ui->treeWidget_mesh->currentItem();
     }
+}
+
+//Двойной щелчок шейдеры - просмотр шейдера
+void MainForm::on_treeWidget_shader_itemDoubleClicked(QTreeWidgetItem *item, int column)
+{
+    PreviewShaderForm* f = new PreviewShaderForm(this);
+    f->setWindowTitle("Просмотр шейдеров: ID key "+item->text(0));
+    f->SetKey(item->text(0));
+    f->SetPathVert(item->text(1));
+    f->SetPathFrag(item->text(2));
+    f->show();
+}
+
+//Двойной щелчок меши - просмотр меша
+void MainForm::on_treeWidget_mesh_itemDoubleClicked(QTreeWidgetItem *item, int column)
+{
+    PreviewMeshForm* f = new PreviewMeshForm(this);
+    f->setWindowTitle("Просмотр меша: ID key "+item->text(0));
+    f->SetKey(item->text(0));
+    f->show();
 }

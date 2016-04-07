@@ -43,7 +43,9 @@ SOURCES += main.cpp\
     ../../../PacManRun/PacManRun/SRC/Engine/texture.cpp \
     ../../../PacManRun/PacManRun/SRC/Engine/tilemap.cpp \
     ../../../PacManRun/PacManRun/SRC/Engine/transformer.cpp \
-    previewtextureform.cpp
+    previewtextureform.cpp \
+    previewshaderform.cpp \
+    previewmeshform.cpp
 
 HEADERS  += mainform.h \
     testgl.h \
@@ -76,7 +78,11 @@ HEADERS  += mainform.h \
     ../../../PacManRun/PacManRun/SRC/Engine/texture.h \
     ../../../PacManRun/PacManRun/SRC/Engine/tilemap.h \
     ../../../PacManRun/PacManRun/SRC/Engine/transformer.h \
-    previewtextureform.h
+    previewtextureform.h \
+    previewshaderform.h \
+    previewmeshform.h
 
 FORMS    += mainform.ui \
-    previewtextureform.ui
+    previewtextureform.ui \
+    previewshaderform.ui \
+    previewmeshform.ui

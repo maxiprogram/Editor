@@ -73,6 +73,9 @@
    <addaction name="save_scene"/>
   </widget>
   <widget class="QDockWidget" name="panel_shader">
+   <property name="floating">
+    <bool>false</bool>
+   </property>
    <property name="features">
     <set>QDockWidget::AllDockWidgetFeatures</set>
    </property>
@@ -124,6 +127,9 @@
    </widget>
   </widget>
   <widget class="QDockWidget" name="panel_mesh">
+   <property name="floating">
+    <bool>false</bool>
+   </property>
    <property name="windowTitle">
     <string>Менеджер мешей</string>
    </property>
@@ -164,6 +170,9 @@
    </widget>
   </widget>
   <widget class="QDockWidget" name="panel_texture">
+   <property name="floating">
+    <bool>false</bool>
+   </property>
    <property name="windowTitle">
     <string>Менеджер текстур</string>
    </property>
@@ -204,6 +213,9 @@
    </widget>
   </widget>
   <widget class="QDockWidget" name="panel_sprite">
+   <property name="floating">
+    <bool>false</bool>
+   </property>
    <property name="windowTitle">
     <string>Менеджер спрайтов</string>
    </property>

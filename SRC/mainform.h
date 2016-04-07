@@ -7,9 +7,18 @@
 #include <QTreeWidget>
 
 #include "previewtextureform.h"
+#include "previewshaderform.h"
+#include "previewmeshform.h"
 
 #include "testgl.h"
-#include "/home/maxiprogram/Project/ForGit/PacManRun/PacManRun/SRC/Engine/resources.h"
+
+#ifdef Q_OS_LINUX
+    #include "/home/maxiprogram/Project/ForGit/PacManRun/PacManRun/SRC/Engine/resources.h"
+#endif
+
+#ifdef Q_OS_WIN32
+    #include "E:\Projects\For_Git\PacManRun\PacManRun\SRC\Engine\resources.h"
+#endif
 
 namespace Ui {
 class MainForm;
@@ -51,6 +60,10 @@ private slots:
     void on_pushButton_add_mesh_clicked();
 
     void on_pushButton_del_mesh_clicked();
+
+    void on_treeWidget_shader_itemDoubleClicked(QTreeWidgetItem *item, int column);
+
+    void on_treeWidget_mesh_itemDoubleClicked(QTreeWidgetItem *item, int column);
 
 private:
     Ui::MainForm *ui;
