@@ -14,7 +14,6 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainform.cpp \
-    testgl.cpp \
     ../../../PacManRun/PacManRun/SRC/Engine/camera.cpp \
     ../../../PacManRun/PacManRun/SRC/Engine/creatorgameobject.cpp \
     ../../../PacManRun/PacManRun/SRC/Engine/font.cpp \
@@ -46,10 +45,11 @@ SOURCES += main.cpp\
     previewtextureform.cpp \
     previewshaderform.cpp \
     previewmeshform.cpp \
-    addspriteform.cpp
+    addspriteform.cpp \
+    scene.cpp \
+    setprojectionform.cpp
 
 HEADERS  += mainform.h \
-    testgl.h \
     ../../../PacManRun/PacManRun/SRC/Engine/camera.h \
     ../../../PacManRun/PacManRun/SRC/Engine/creatorgameobject.h \
     ../../../PacManRun/PacManRun/SRC/Engine/engine.h \
@@ -82,10 +82,13 @@ HEADERS  += mainform.h \
     previewtextureform.h \
     previewshaderform.h \
     previewmeshform.h \
-    addspriteform.h
+    addspriteform.h \
+    scene.h \
+    setprojectionform.h
 
 FORMS    += mainform.ui \
     previewtextureform.ui \
     previewshaderform.ui \
     previewmeshform.ui \
-    addspriteform.ui
+    addspriteform.ui \
+    setprojectionform.ui

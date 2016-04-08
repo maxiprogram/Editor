@@ -32,6 +32,13 @@ void MainForm::onSendTreeTexture()
     emit send_tree_texture(ui->treeWidget_texture);
 }
 
+void MainForm::onSetProjection(DataProjection proj)
+{
+    Scene* scene = (Scene*)ui->tabWidget->currentWidget()->children().at(1);
+    scene->SetProjection(proj);
+    scene->UpdateSize(scene->size().width(), scene->size().height());
+}
+
 void MainForm::on_exit_triggered()
 {
     this->close();
@@ -40,30 +47,65 @@ void MainForm::on_exit_triggered()
 //Создание вкладки (new_scene)
 void MainForm::on_new_scene_triggered()
 {
-    ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(new QWidget(ui->tabWidget), "*new_scene"));
+    int number = 0;
+    GameScene* scene = 0;
+    scene = Resources::GAMESCENE()->GetValue("new_scene"+QString::number(number));
+    while(scene!=0)
+    {
+        number++;
+        scene = Resources::GAMESCENE()->GetValue("new_scene"+QString::number(number));
+    }
+    Resources::GAMESCENE()->Add("new_scene"+QString::number(number), new GameScene);
+
+    ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(new QWidget(ui->tabWidget), "*new_scene"+QString::number(number)));
 
     QVBoxLayout *layout = new QVBoxLayout(ui->tabWidget->currentWidget());
-    testgl* gl = new testgl(ui->tabWidget->currentWidget());
-    layout->addWidget(gl);
-    gl->show();
+    Scene* n_scene = new Scene(ui->tabWidget->currentWidget());
+    n_scene->SetKeyScene("new_scene"+QString::number(number));
+    layout->addWidget(n_scene);
+    n_scene->show();
 }
 
 //Закрытие вкладки
 void MainForm::on_tabWidget_tabCloseRequested(int index)
 {
+    QString name_scene = ui->tabWidget->tabText(index);
+    if (name_scene.at(0)=='*')
+    {
+        QMessageBox::information(this, "Закрытие сцены", "Сцена не сохранена!");
+        name_scene.remove(0, 1);
+        Resources::GAMESCENE()->Delete(name_scene);
+        ui->tabWidget->removeTab(index);
+        return;
+    }
+    Resources::GAMESCENE()->Delete(name_scene);
     ui->tabWidget->removeTab(index);
 }
 
 //Закрытие текущей вкладки
 void MainForm::on_close_scene_triggered()
 {
+    QString name_scene = ui->tabWidget->tabText(ui->tabWidget->currentIndex());
+    if (name_scene.at(0)=='*')
+    {
+        QMessageBox::information(this, "Закрытие сцены", "Сцена не сохранена!");
+        name_scene.remove(0, 1);
+        Resources::GAMESCENE()->Delete(name_scene);
+        ui->tabWidget->removeTab(ui->tabWidget->currentIndex());
+        return;
+    }
+    Resources::GAMESCENE()->Delete(name_scene);
     ui->tabWidget->removeTab(ui->tabWidget->currentIndex());
 }
 
 //Закрытие всех вкладок
 void MainForm::on_close_all_scene_triggered()
 {
-    ui->tabWidget->clear();
+    int count_tab = ui->tabWidget->count();
+    for (int i=0; i<count_tab; i++)
+    {
+        this->on_close_scene_triggered();
+    }
 }
 
 //Добавление параметра в панель параметров
@@ -256,3 +298,13 @@ void MainForm::on_treeWidget_sprite_itemDoubleClicked(QTreeWidgetItem *item, int
 
 }
 
+//Настройки проекции
+void MainForm::on_set_projection_scene_triggered()
+{
+    if (ui->tabWidget->count()>0)
+    {
+        SetProjectionForm* f = new SetProjectionForm(this);
+        connect(f, SIGNAL(send_projection(DataProjection)), this, SLOT(onSetProjection(DataProjection)));
+        f->show();
+    }
+}

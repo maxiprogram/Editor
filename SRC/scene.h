@@ -1,9 +1,11 @@
-#ifndef TESTGL_H
-#define TESTGL_H
+#ifndef SCENE_H
+#define SCENE_H
 
 #include <QtOpenGL/QGLWidget>
 //#include <QOpenGLWidget>
 #include <QOpenGLFunctions>
+
+#include "setprojectionform.h"
 
 #ifdef Q_OS_LINUX
     #include "/home/maxiprogram/Project/ForGit/PacManRun/PacManRun/SRC/Engine/resources.h"
@@ -13,15 +15,23 @@
     #include "E:\Projects\For_Git\PacManRun\PacManRun\SRC\Engine\resources.h"
 #endif
 
-class testgl:public QGLWidget, public QOpenGLFunctions
+class Scene:public QGLWidget, public QOpenGLFunctions
 {
 public:
-    testgl(QWidget *parent) : QGLWidget(parent) { }
+    Scene(QWidget *parent) : QGLWidget(parent) { }
+    void SetKeyScene(QString name);
+    void SetProjection(DataProjection proj);
+    void UpdateSize(int w, int h);
 
 protected:
     void initializeGL();
     void paintGL();
     void resizeGL(int w, int h);
+
+private:
+    QString key;
+    DataProjection data_proj;
+    QMatrix4x4 projection;
 };
 
-#endif // TESTGL_H
+#endif // SCENE_H

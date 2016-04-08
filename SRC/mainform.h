@@ -10,8 +10,9 @@
 #include "previewshaderform.h"
 #include "previewmeshform.h"
 #include "addspriteform.h"
+#include "setprojectionform.h"
 
-#include "testgl.h"
+#include "scene.h"
 
 #ifdef Q_OS_LINUX
     #include "/home/maxiprogram/Project/ForGit/PacManRun/PacManRun/SRC/Engine/resources.h"
@@ -38,6 +39,7 @@ public slots:
     void onSendTreeMesh();
     void onSendTreeTexture();
     void onAppendTreeSprite(QString key_sprite, QString key_shader, QString key_mesh, QString key_texture);
+    void onSetProjection(DataProjection proj);
 
 private slots:
     void on_exit_triggered();
@@ -77,6 +79,8 @@ private slots:
     void on_pushButton_add_sprite_clicked();
 
     void on_pushButton_del_sprite_clicked();
+
+    void on_set_projection_scene_triggered();
 
 signals:
     void send_tree_shader(QTreeWidget* tree_shader);

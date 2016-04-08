@@ -1,14 +1,23 @@
-#include "testgl.h"
+#include "scene.h"
 
-void testgl::initializeGL()
+void Scene::SetKeyScene(QString name)
+{
+    this->key = name;
+}
+
+void Scene::SetProjection(DataProjection proj)
+{
+    this->data_proj = proj;
+    //qDebug()<<"onSetProjection"<<projection;
+}
+
+void Scene::initializeGL()
 {
     initializeOpenGLFunctions();
-    glClearColor(1.0, 0.0, 0.0, 1.0);
 
-    glMatrixMode(GL_PROJECTION);
-    QMatrix4x4 mat;
-    mat.ortho(0, 800, 0, 600, -10, 10);
-    glLoadMatrixf(mat.data());
+    projection.setToIdentity();
+    projection.ortho(0, this->width(), 0, this->height(), 0, 2);
+
 
     Shader* shader = new Shader;
     shader->Load("default.vert", "default.frag");
@@ -29,18 +38,15 @@ void testgl::initializeGL()
 
 }
 
-void testgl::paintGL()
+void Scene::paintGL()
 {
     ///*Альфа смешивание
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    //glEnable(GL_ALPHA_TEST);
     //Альфа смешивание*/
 
     ///*Буфер глубины(QSurfaceFormat.setDepthBufferSize(24);)
     glEnable(GL_DEPTH_TEST);
-    //glDepthFunc(GL_LESS);
-    //glDepthMask(GL_TRUE);
     //Буфер глубины(QSurfaceFormat.setDepthBufferSize(24);)*/
 
     glClearColor(0.5, 0.5, 0.5, 1.0);
@@ -57,7 +63,9 @@ void testgl::paintGL()
 //    glEnd();
 
     QMatrix4x4 mat;
-    mat.ortho(0, 800, 0, 600, -10, 10);
+    mat.ortho(0, 800, 0, 600, 0, 2);
+    //projection = mat;
+
 
     QMatrix4x4 cam;
     cam.lookAt(QVector3D(0, 0, 1), QVector3D(0, 0, -1), QVector3D(0, 1, 0));
@@ -67,19 +75,27 @@ void testgl::paintGL()
     tr.SetPos(QVector3D(0, 0, 0));
     Resources::SPRITE()->GetValue(0)->Bind();
     Resources::SPRITE()->GetValue(0)->GetShader()->setUniformValue(Resources::SPRITE()->GetValue(0)->GetShader()->GetNameMatrixPos().toStdString().c_str(),
-                                                                                        mat *
+                                                                                        projection *
                                                                                         cam *
                                                                                         tr.GetMatrix());
     glDrawArrays(GL_TRIANGLES, 0, Resources::SPRITE()->GetValue(0)->GetMesh()->GetCountVertex());
+    Resources::SPRITE()->GetValue(0)->UnBind();
+
+    Resources::GAMESCENE()->GetValue(key)->Draw();
 
 }
 
-void testgl::resizeGL(int w, int h)
+void Scene::UpdateSize(int w, int h)
 {
-    //this->resize(w, h);
-    //glViewPort(0, 0, w, h);
-    //glMatrixMode(GL_PROJECTION);
-    //QMatrix4x4 mat;
-    //mat.ortho(-5, 5, -5, 5, -5, 5);
-    //glLoadMatrixf(mat.data());
+    this->resizeGL(w, h);
+}
+
+void Scene::resizeGL(int w, int h)
+{
+    this->glViewport(0, 0, w, h);
+    projection.setToIdentity();
+    if (data_proj.ortho)
+        projection.ortho(0, w, 0, h, data_proj.near, data_proj.far);
+    else
+        projection.perspective(data_proj.angle, w/h, data_proj.near, data_proj.far);
 }
