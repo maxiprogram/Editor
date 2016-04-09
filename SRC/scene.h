@@ -18,8 +18,9 @@
 class Scene:public QGLWidget, public QOpenGLFunctions
 {
 public:
-    Scene(QWidget *parent) : QGLWidget(parent) { }
+    Scene(QWidget *parent) : QGLWidget(parent) { data_proj.angle = 45; data_proj.near = 0; data_proj.far = 2; data_proj.ortho = true; }
     void SetKeyScene(QString name);
+    QString GetKeyScene();
     void SetProjection(DataProjection proj);
     void UpdateSize(int w, int h);
 

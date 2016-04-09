@@ -62,8 +62,15 @@
     </property>
     <addaction name="set_projection_scene"/>
    </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>Создать</string>
+    </property>
+    <addaction name="create_GameObject2D"/>
+   </widget>
    <addaction name="menu"/>
    <addaction name="menuCwtyf"/>
+   <addaction name="menu_2"/>
   </widget>
   <widget class="QToolBar" name="toolBarFile">
    <property name="windowTitle">
@@ -359,6 +366,11 @@
   <action name="set_projection_scene">
    <property name="text">
     <string>Настройка проекции</string>
+   </property>
+  </action>
+  <action name="create_GameObject2D">
+   <property name="text">
+    <string>GameObject2D</string>
    </property>
   </action>
  </widget>

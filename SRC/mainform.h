@@ -41,6 +41,10 @@ public slots:
     void onAppendTreeSprite(QString key_sprite, QString key_shader, QString key_mesh, QString key_texture);
     void onSetProjection(DataProjection proj);
 
+protected:
+    void keyPressEvent(QKeyEvent* event);
+    void keyReleaseEvent(QKeyEvent* event);
+
 private slots:
     void on_exit_triggered();
 
@@ -81,6 +85,10 @@ private slots:
     void on_pushButton_del_sprite_clicked();
 
     void on_set_projection_scene_triggered();
+
+    void on_tabWidget_currentChanged(int index);
+
+    void on_create_GameObject2D_triggered();
 
 signals:
     void send_tree_shader(QTreeWidget* tree_shader);

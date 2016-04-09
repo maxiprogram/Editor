@@ -47,7 +47,9 @@ SOURCES += main.cpp\
     previewmeshform.cpp \
     addspriteform.cpp \
     scene.cpp \
-    setprojectionform.cpp
+    setprojectionform.cpp \
+    creategameobject2dform.cpp \
+    gameobject2d.cpp
 
 HEADERS  += mainform.h \
     ../../../PacManRun/PacManRun/SRC/Engine/camera.h \
@@ -84,11 +86,14 @@ HEADERS  += mainform.h \
     previewmeshform.h \
     addspriteform.h \
     scene.h \
-    setprojectionform.h
+    setprojectionform.h \
+    creategameobject2dform.h \
+    gameobject2d.h
 
 FORMS    += mainform.ui \
     previewtextureform.ui \
     previewshaderform.ui \
     previewmeshform.ui \
     addspriteform.ui \
-    setprojectionform.ui
+    setprojectionform.ui \
+    creategameobject2dform.ui

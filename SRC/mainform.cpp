@@ -56,8 +56,12 @@ void MainForm::on_new_scene_triggered()
         scene = Resources::GAMESCENE()->GetValue("new_scene"+QString::number(number));
     }
     Resources::GAMESCENE()->Add("new_scene"+QString::number(number), new GameScene);
+    Camera* camera = new Camera;
+    camera->SetTypeCamera(Direction_Camera);
+    Resources::CAMERA()->Add("camera_new_scene"+QString::number(number), camera);
 
     ui->tabWidget->setCurrentIndex(ui->tabWidget->addTab(new QWidget(ui->tabWidget), "*new_scene"+QString::number(number)));
+    Resources::CAMERA()->SetCurrentCamera("camera_new_scene"+QString::number(number));
 
     QVBoxLayout *layout = new QVBoxLayout(ui->tabWidget->currentWidget());
     Scene* n_scene = new Scene(ui->tabWidget->currentWidget());
@@ -69,32 +73,36 @@ void MainForm::on_new_scene_triggered()
 //Закрытие вкладки
 void MainForm::on_tabWidget_tabCloseRequested(int index)
 {
-    QString name_scene = ui->tabWidget->tabText(index);
-    if (name_scene.at(0)=='*')
+    Scene* scene = (Scene*)ui->tabWidget->currentWidget()->children().at(1);
+    QString name_scene = scene->GetKeyScene();
+    if (ui->tabWidget->tabText(index).at(0)=='*')
     {
         QMessageBox::information(this, "Закрытие сцены", "Сцена не сохранена!");
-        name_scene.remove(0, 1);
         Resources::GAMESCENE()->Delete(name_scene);
+        Resources::CAMERA()->Delete("camera_"+name_scene);
         ui->tabWidget->removeTab(index);
         return;
     }
     Resources::GAMESCENE()->Delete(name_scene);
+    Resources::CAMERA()->Delete("camera_"+name_scene);
     ui->tabWidget->removeTab(index);
 }
 
 //Закрытие текущей вкладки
 void MainForm::on_close_scene_triggered()
 {
-    QString name_scene = ui->tabWidget->tabText(ui->tabWidget->currentIndex());
-    if (name_scene.at(0)=='*')
+    Scene* scene = (Scene*)ui->tabWidget->currentWidget()->children().at(1);
+    QString name_scene = scene->GetKeyScene();
+    if (ui->tabWidget->tabText(ui->tabWidget->currentIndex()).at(0)=='*')
     {
         QMessageBox::information(this, "Закрытие сцены", "Сцена не сохранена!");
-        name_scene.remove(0, 1);
         Resources::GAMESCENE()->Delete(name_scene);
+        Resources::CAMERA()->Delete("camera_"+name_scene);
         ui->tabWidget->removeTab(ui->tabWidget->currentIndex());
         return;
     }
     Resources::GAMESCENE()->Delete(name_scene);
+    Resources::CAMERA()->Delete("camera_"+name_scene);
     ui->tabWidget->removeTab(ui->tabWidget->currentIndex());
 }
 
@@ -307,4 +315,32 @@ void MainForm::on_set_projection_scene_triggered()
         connect(f, SIGNAL(send_projection(DataProjection)), this, SLOT(onSetProjection(DataProjection)));
         f->show();
     }
+}
+
+//Обработка нажатия клавиш
+void MainForm::keyPressEvent(QKeyEvent* event)
+{
+    Resources::KEYBOARD()->Update(event);
+    Scene* scene = (Scene*)ui->tabWidget->currentWidget()->children().at(1);
+    scene->update();
+}
+
+//Обработка нажатия клавиш
+void MainForm::keyReleaseEvent(QKeyEvent* event)
+{
+    Resources::KEYBOARD()->Update(event, false);
+    Scene* scene = (Scene*)ui->tabWidget->currentWidget()->children().at(1);
+    scene->update();
+}
+
+//Изменение активной сцены
+void MainForm::on_tabWidget_currentChanged(int index)
+{
+    Resources::CAMERA()->SetCurrentCamera("camera_new_scene"+QString::number(index));
+}
+
+//Создание GameObject2D
+void MainForm::on_create_GameObject2D_triggered()
+{
+
 }

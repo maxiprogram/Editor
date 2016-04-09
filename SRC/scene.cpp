@@ -5,10 +5,14 @@ void Scene::SetKeyScene(QString name)
     this->key = name;
 }
 
+QString Scene::GetKeyScene()
+{
+    return key;
+}
+
 void Scene::SetProjection(DataProjection proj)
 {
     this->data_proj = proj;
-    //qDebug()<<"onSetProjection"<<projection;
 }
 
 void Scene::initializeGL()
@@ -62,13 +66,37 @@ void Scene::paintGL()
 //    glVertex3f(0.0, 1.0, 0.0);
 //    glEnd();
 
-    QMatrix4x4 mat;
-    mat.ortho(0, 800, 0, 600, 0, 2);
-    //projection = mat;
 
-
-    QMatrix4x4 cam;
-    cam.lookAt(QVector3D(0, 0, 1), QVector3D(0, 0, -1), QVector3D(0, 1, 0));
+    if (Resources::KEYBOARD()->GetKey(Qt::Key_W)==true)
+    {
+        Resources::CAMERA()->GetValue("camera_"+key)->MoveForward(1);
+        qDebug()<<"W="<<Resources::CAMERA()->GetValue("camera_"+key)->GetPos();
+    }
+    if (Resources::KEYBOARD()->GetKey(Qt::Key_S)==true)
+    {
+        Resources::CAMERA()->GetValue("camera_"+key)->MoveForward(-1);
+        qDebug()<<"S="<<Resources::CAMERA()->GetValue("camera_"+key)->GetPos();
+    }
+    if (Resources::KEYBOARD()->GetKey(Qt::Key_A)==true)
+    {
+        Resources::CAMERA()->GetValue("camera_"+key)->MoveRight(-1);
+        qDebug()<<"A="<<Resources::CAMERA()->GetValue("camera_"+key)->GetPos();
+    }
+    if (Resources::KEYBOARD()->GetKey(Qt::Key_D)==true)
+    {
+        Resources::CAMERA()->GetValue("camera_"+key)->MoveRight(1);
+        qDebug()<<"D="<<Resources::CAMERA()->GetValue("camera_"+key)->GetPos();
+    }
+    if (Resources::KEYBOARD()->GetKey(Qt::Key_Z)==true)
+    {
+        Resources::CAMERA()->GetValue("camera_"+key)->MoveUp(1);
+        qDebug()<<"D="<<Resources::CAMERA()->GetValue("camera_"+key)->GetPos();
+    }
+    if (Resources::KEYBOARD()->GetKey(Qt::Key_X)==true)
+    {
+        Resources::CAMERA()->GetValue("camera_"+key)->MoveUp(-1);
+        qDebug()<<"D="<<Resources::CAMERA()->GetValue("camera_"+key)->GetPos();
+    }
 
     Transformer tr;
     tr.SetScal(QVector3D(132, 207, 1));
@@ -76,7 +104,7 @@ void Scene::paintGL()
     Resources::SPRITE()->GetValue(0)->Bind();
     Resources::SPRITE()->GetValue(0)->GetShader()->setUniformValue(Resources::SPRITE()->GetValue(0)->GetShader()->GetNameMatrixPos().toStdString().c_str(),
                                                                                         projection *
-                                                                                        cam *
+                                                                                        Resources::CAMERA()->GetValue("camera_"+key)->GetMatrix() *
                                                                                         tr.GetMatrix());
     glDrawArrays(GL_TRIANGLES, 0, Resources::SPRITE()->GetValue(0)->GetMesh()->GetCountVertex());
     Resources::SPRITE()->GetValue(0)->UnBind();
