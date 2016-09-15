@@ -342,5 +342,44 @@ void MainForm::on_tabWidget_currentChanged(int index)
 //Создание GameObject2D
 void MainForm::on_create_GameObject2D_triggered()
 {
+    if (ui->tabWidget->count()>0)
+    {
+        CreateGameObject2DForm* f = new CreateGameObject2DForm(this);
+        Scene* scene = (Scene*)ui->tabWidget->currentWidget()->children().at(1);
+        f->key_scene = scene->GetKeyScene();
+        f->exec();
+        PrintGameObject();
+    }
+}
 
+//Вывод GameObject в таблицу
+void MainForm::PrintGameObject()
+{
+    ui->treeWidget_gameobject->clear();
+
+    QMultiHash<QString, GameObject*>* hash_gameobject = Resources::GAMEOBJECT()->GetHashTab();
+    QMultiHash<QString, GameObject*>::iterator it_hash_gameobject = hash_gameobject->begin();
+    while(it_hash_gameobject!=hash_gameobject->end())
+    {
+        QTreeWidgetItem* item = new QTreeWidgetItem(ui->treeWidget_gameobject);
+        item->setText(0, it_hash_gameobject.value()->GetName());
+        item->setText(1, "доделать");
+        ui->treeWidget_gameobject->insertTopLevelItem(ui->treeWidget_gameobject->topLevelItemCount(), item);
+        it_hash_gameobject++;
+    }
+
+
+}
+
+//Удаление GameObject
+void MainForm::on_pushButton_clicked()
+{
+//    if (ui->treeWidget_gameobject->topLevelItemCount()>0)
+//    {
+//        QString key = ui->treeWidget_gameobject->currentItem()->text(0).toInt();
+//        Scene* scene = (Scene*)ui->tabWidget->currentWidget()->children().at(1);
+//        QString key_scene = scene->GetKeyScene();
+//        Resources::GAMESCENE()->GetValue(key_scene)->DeleteGameObject();
+//        delete ui->treeWidget_sprite->currentItem();
+//    }
 }

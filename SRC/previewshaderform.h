@@ -10,7 +10,7 @@
 #endif
 
 #ifdef Q_OS_WIN32
-    #include "E:\Projects\For_Git\PacManRun\PacManRun\SRC\Engine\resources.h"
+    #include "Engine/resources.h"
 #endif
 
 namespace Ui {

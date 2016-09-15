@@ -12,3 +12,23 @@ CreateGameObject2DForm::~CreateGameObject2DForm()
 {
     delete ui;
 }
+
+void CreateGameObject2DForm::on_pushButton_2_clicked()
+{
+    close();
+}
+
+void CreateGameObject2DForm::on_pushButton_clicked()
+{
+    QHash<QString, QString> property;
+    property.insert("id_sprite", ui->lineEdit_id_sprite->text());
+
+    GameObject* obj = new GameObject2D;
+    obj->SetName(ui->lineEdit_name->text());
+    obj->Init(property);
+
+    GameScene* scene = Resources::GAMESCENE()->GetValue(key_scene);
+    scene->AddGameObject(obj);
+
+    close();
+}

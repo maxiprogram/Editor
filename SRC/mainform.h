@@ -11,6 +11,7 @@
 #include "previewmeshform.h"
 #include "addspriteform.h"
 #include "setprojectionform.h"
+#include "creategameobject2dform.h"
 
 #include "scene.h"
 
@@ -19,7 +20,7 @@
 #endif
 
 #ifdef Q_OS_WIN32
-    #include "E:\Projects\For_Git\PacManRun\PacManRun\SRC\Engine\resources.h"
+    #include "Engine/resources.h"
 #endif
 
 namespace Ui {
@@ -33,6 +34,7 @@ class MainForm : public QMainWindow
 public:
     explicit MainForm(QWidget *parent = 0);
     ~MainForm();
+    void PrintGameObject();
 
 public slots:
     void onSendTreeShader();
@@ -89,6 +91,8 @@ private slots:
     void on_tabWidget_currentChanged(int index);
 
     void on_create_GameObject2D_triggered();
+
+    void on_pushButton_clicked();
 
 signals:
     void send_tree_shader(QTreeWidget* tree_shader);

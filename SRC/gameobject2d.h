@@ -8,10 +8,10 @@
 #endif
 
 #ifdef Q_OS_WIN32
-    #include "E:\Projects\For_Git\PacManRun\PacManRun\SRC\Engine\resources.h"
+    #include "Engine/resources.h"
 #endif
 
-class GameObject2D: public GameObject
+class GameObject2D: public GameObject, protected QOpenGLFunctions
 {
 public:
     GameObject2D();
@@ -21,7 +21,7 @@ public:
     void Draw();
 
 private:
-    int id_sprite;
+    QHash<QString, QString> property;
 
 };
 

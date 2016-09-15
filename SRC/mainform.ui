@@ -39,7 +39,7 @@
      <x>0</x>
      <y>0</y>
      <width>749</width>
-     <height>27</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu">
@@ -87,15 +87,6 @@
    <addaction name="save_scene"/>
   </widget>
   <widget class="QDockWidget" name="panel_shader">
-   <property name="floating">
-    <bool>false</bool>
-   </property>
-   <property name="features">
-    <set>QDockWidget::AllDockWidgetFeatures</set>
-   </property>
-   <property name="allowedAreas">
-    <set>Qt::AllDockWidgetAreas</set>
-   </property>
    <property name="windowTitle">
     <string>Менеджер шейдеров</string>
    </property>
@@ -141,9 +132,6 @@
    </widget>
   </widget>
   <widget class="QDockWidget" name="panel_mesh">
-   <property name="floating">
-    <bool>false</bool>
-   </property>
    <property name="windowTitle">
     <string>Менеджер мешей</string>
    </property>
@@ -184,9 +172,6 @@
    </widget>
   </widget>
   <widget class="QDockWidget" name="panel_texture">
-   <property name="floating">
-    <bool>false</bool>
-   </property>
    <property name="windowTitle">
     <string>Менеджер текстур</string>
    </property>
@@ -227,9 +212,6 @@
    </widget>
   </widget>
   <widget class="QDockWidget" name="panel_sprite">
-   <property name="floating">
-    <bool>false</bool>
-   </property>
    <property name="windowTitle">
     <string>Менеджер спрайтов</string>
    </property>
@@ -286,7 +268,31 @@
    <attribute name="dockWidgetArea">
     <number>2</number>
    </attribute>
-   <widget class="QWidget" name="dockWidgetContents_9"/>
+   <widget class="QWidget" name="dockWidgetContents_9">
+    <layout class="QVBoxLayout" name="verticalLayout_7">
+     <item>
+      <widget class="QTreeWidget" name="treeWidget_gameobject">
+       <column>
+        <property name="text">
+         <string>Name key</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Type</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton">
+       <property name="text">
+        <string>Удалить объект</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QDockWidget" name="panel_property">
    <property name="windowTitle">

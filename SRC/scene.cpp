@@ -22,24 +22,6 @@ void Scene::initializeGL()
     projection.setToIdentity();
     projection.ortho(0, this->width(), 0, this->height(), 0, 2);
 
-
-    Shader* shader = new Shader;
-    shader->Load("default.vert", "default.frag");
-    Resources::SHADER()->Add(0, shader);
-    Mesh* mesh = new Mesh;
-    mesh->Create();
-    Resources::MESH()->Add(0, mesh);
-    Texture* tex = new Texture;
-    tex->Load("blood.png");
-    tex->Create();
-    Resources::TEXTURE()->Add(0, tex);
-    Sprite* sprite = new Sprite;
-    sprite->SetShaderKey(0);
-    sprite->SetMeshKey(0);
-    sprite->SetTextureKey(0);
-    sprite->Create();
-    Resources::SPRITE()->Add(0, sprite);
-
 }
 
 void Scene::paintGL()
@@ -98,17 +80,6 @@ void Scene::paintGL()
         qDebug()<<"D="<<Resources::CAMERA()->GetValue("camera_"+key)->GetPos();
     }
 
-    Transformer tr;
-    tr.SetScal(QVector3D(132, 207, 1));
-    tr.SetPos(QVector3D(0, 0, 0));
-    Resources::SPRITE()->GetValue(0)->Bind();
-    Resources::SPRITE()->GetValue(0)->GetShader()->setUniformValue(Resources::SPRITE()->GetValue(0)->GetShader()->GetNameMatrixPos().toStdString().c_str(),
-                                                                                        projection *
-                                                                                        Resources::CAMERA()->GetValue("camera_"+key)->GetMatrix() *
-                                                                                        tr.GetMatrix());
-    glDrawArrays(GL_TRIANGLES, 0, Resources::SPRITE()->GetValue(0)->GetMesh()->GetCountVertex());
-    Resources::SPRITE()->GetValue(0)->UnBind();
-
     Resources::GAMESCENE()->GetValue(key)->Draw();
 
 }
@@ -123,7 +94,7 @@ void Scene::resizeGL(int w, int h)
     this->glViewport(0, 0, w, h);
     projection.setToIdentity();
     if (data_proj.ortho)
-        projection.ortho(0, w, 0, h, data_proj.near, data_proj.far);
+        projection.ortho(0, w, 0, h, data_proj.near_, data_proj.far_);
     else
-        projection.perspective(data_proj.angle, w/h, data_proj.near, data_proj.far);
+        projection.perspective(data_proj.angle, w/h, data_proj.near_, data_proj.far_);
 }

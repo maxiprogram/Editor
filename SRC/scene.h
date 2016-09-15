@@ -12,13 +12,13 @@
 #endif
 
 #ifdef Q_OS_WIN32
-    #include "E:\Projects\For_Git\PacManRun\PacManRun\SRC\Engine\resources.h"
+    #include "Engine/resources.h"
 #endif
 
 class Scene:public QGLWidget, public QOpenGLFunctions
 {
 public:
-    Scene(QWidget *parent) : QGLWidget(parent) { data_proj.angle = 45; data_proj.near = 0; data_proj.far = 2; data_proj.ortho = true; }
+    Scene(QWidget *parent) : QGLWidget(parent) { data_proj.angle = 45; data_proj.near_ = 0; data_proj.far_ = 2; data_proj.ortho = true; }
     void SetKeyScene(QString name);
     QString GetKeyScene();
     void SetProjection(DataProjection proj);

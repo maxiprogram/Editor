@@ -25,14 +25,14 @@ void SetProjectionForm::on_pushButton_apply_clicked()
     if (ui->radioButton_ortho->isChecked())
     {
         projection.ortho = true;
-        projection.near = ui->lineEdit_near->text().toFloat();
-        projection.far = ui->lineEdit_far->text().toFloat();
+        projection.near_ = ui->lineEdit_near->text().toFloat();
+        projection.far_ = ui->lineEdit_far->text().toFloat();
         projection.angle = 90;
     } else
     {
         projection.ortho = false;
-        projection.near = ui->lineEdit_near->text().toFloat();
-        projection.far = ui->lineEdit_far->text().toFloat();
+        projection.near_ = ui->lineEdit_near->text().toFloat();
+        projection.far_ = ui->lineEdit_far->text().toFloat();
         projection.angle = ui->lineEdit_angle->text().toFloat();
     }
     emit send_projection(projection);

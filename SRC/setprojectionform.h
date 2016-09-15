@@ -7,8 +7,8 @@
 struct DataProjection
 {
     bool ortho;
-    float near;
-    float far;
+    float near_;
+    float far_;
     float angle;
 };
 
