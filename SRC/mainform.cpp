@@ -129,6 +129,8 @@ void MainForm::on_pushButton_add_property_clicked()
 //Удаление параметра из панели параметров
 void MainForm::on_pushButton_del_property_clicked()
 {
+    GameObject2D* obj = (GameObject2D*)Resources::GAMEOBJECT()->GetValue(ui->treeWidget_gameobject->currentItem()->data(0, Qt::DisplayRole).toString());
+    obj->property.remove(ui->treeWidget_property->currentItem()->data(0, Qt::DisplayRole).toString());
     delete ui->treeWidget_property->currentItem();
 }
 
@@ -371,7 +373,7 @@ void MainForm::PrintGameObject()
 
 }
 
-//Удаление GameObject
+//Удаление GameObject !!!Доделать нормально
 void MainForm::on_pushButton_clicked()
 {
 //    if (ui->treeWidget_gameobject->topLevelItemCount()>0)
@@ -382,4 +384,45 @@ void MainForm::on_pushButton_clicked()
 //        Resources::GAMESCENE()->GetValue(key_scene)->DeleteGameObject();
 //        delete ui->treeWidget_sprite->currentItem();
 //    }
+}
+
+//Выбран GameObject !!!Доделать нормально
+void MainForm::on_treeWidget_gameobject_itemActivated(QTreeWidgetItem *item, int column)
+{
+    qDebug()<<item->data(0,Qt::DisplayRole);
+    GameObject2D* obj = (GameObject2D*)Resources::GAMEOBJECT()->GetValue(item->data(0,Qt::DisplayRole).toString());
+    QHash<QString, QString>::iterator it = obj->property.begin();
+    ui->treeWidget_property->clear();
+    while(it!=obj->property.end())
+    {
+        QTreeWidgetItem* item = new QTreeWidgetItem(ui->treeWidget_property);
+        item->setText(0, it.key());
+        item->setText(1, it.value());
+        item->setFlags(item->flags()|Qt::ItemIsEditable);
+        ui->treeWidget_property->insertTopLevelItem(ui->treeWidget_property->topLevelItemCount(), item);
+        it++;
+    }
+}
+
+//Изменение свойств GameObject !!!Доделать нормально
+void MainForm::on_treeWidget_property_itemChanged(QTreeWidgetItem *item, int column)
+{
+    if(column==0)
+        return;
+    qDebug()<<"Property Changer";
+    GameObject2D* obj = (GameObject2D*)Resources::GAMEOBJECT()->GetValue(ui->treeWidget_gameobject->currentItem()->data(0, Qt::DisplayRole).toString());
+
+    qDebug()<<item->data(0, Qt::DisplayRole);
+    qDebug()<<item->data(1, Qt::DisplayRole);
+
+    if (item->data(0, Qt::DisplayRole)=="pos_x")
+        obj->SetPosX(item->data(1, Qt::DisplayRole).toFloat());
+    if (item->data(0, Qt::DisplayRole)=="pos_y")
+        obj->SetPosY(item->data(1, Qt::DisplayRole).toFloat());
+    if (item->data(0, Qt::DisplayRole)=="pos_z")
+        obj->SetPosZ(item->data(1, Qt::DisplayRole).toFloat());
+    else
+    {
+        obj->property.insert(item->data(0, Qt::DisplayRole).toString(), item->data(1, Qt::DisplayRole).toString());
+    }
 }

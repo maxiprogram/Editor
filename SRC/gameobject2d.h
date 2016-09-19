@@ -20,7 +20,7 @@ public:
     void Update(float dt);
     void Draw();
 
-private:
+public:
     QHash<QString, QString> property;
 
 };

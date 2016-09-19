@@ -22,6 +22,9 @@ void CreateGameObject2DForm::on_pushButton_clicked()
 {
     QHash<QString, QString> property;
     property.insert("id_sprite", ui->lineEdit_id_sprite->text());
+    property.insert("pos_x", "0");
+    property.insert("pos_y", "0");
+    property.insert("pos_z", "0");
 
     GameObject* obj = new GameObject2D;
     obj->SetName(ui->lineEdit_name->text());

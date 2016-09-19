@@ -94,6 +94,10 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_treeWidget_gameobject_itemActivated(QTreeWidgetItem *item, int column);
+
+    void on_treeWidget_property_itemChanged(QTreeWidgetItem *item, int column);
+
 signals:
     void send_tree_shader(QTreeWidget* tree_shader);
     void send_tree_mesh(QTreeWidget* tree_mesh);
