@@ -37,17 +37,29 @@ void Scene::paintGL()
 
     glClearColor(0.5, 0.5, 0.5, 1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//    glBegin(GL_TRIANGLES);
-//    glColor3f(1.0, 0.0, 0.0);
-//    glVertex3f(0.0, 0.0, 0.0);
 
-//    glColor3f(1.0, 0.0, 0.0);
-//    glVertex3f(1.0, 0.0, 0.0);
 
-//    glColor3f(1.0, 0.0, 0.0);
-//    glVertex3f(0.0, 1.0, 0.0);
-//    glEnd();
+    if(press_mouse)
+    {
+        float x = (float)(current_point_mouse.x()-last_point_mouse.x())/this->width();
+        float y = (float)(current_point_mouse.y()-last_point_mouse.y())/this->height();
 
+        Resources::CAMERA()->GetValue("camera_"+key)->MoveRight(-x);
+        Resources::CAMERA()->GetValue("camera_"+key)->MoveUp(y);
+
+//        if((last_point_mouse.x()-current_point_mouse.x())>0)
+//            Resources::CAMERA()->GetValue("camera_"+key)->MoveRight(0.1);
+//        else
+//            Resources::CAMERA()->GetValue("camera_"+key)->MoveRight(-0.1);
+//        if((last_point_mouse.y()-current_point_mouse.y())>0)
+//            Resources::CAMERA()->GetValue("camera_"+key)->MoveUp(0.1);
+//        else
+//            Resources::CAMERA()->GetValue("camera_"+key)->MoveUp(-0.1);
+
+        qDebug()<<"last:"<<last_point_mouse;
+        qDebug()<<"new:"<<current_point_mouse;
+        qDebug()<<"Camera:"<<Resources::CAMERA()->GetValue("camera_"+key)->GetPos();
+    }
 
     if (Resources::KEYBOARD()->GetKey(Qt::Key_W)==true)
     {
@@ -81,6 +93,8 @@ void Scene::paintGL()
     }
 
     Resources::GAMESCENE()->GetValue(key)->Draw();
+    //this->update();
+    //qDebug()<<"Draw";
 
 }
 
@@ -98,3 +112,45 @@ void Scene::resizeGL(int w, int h)
     else
         projection.perspective(data_proj.angle, w/h, data_proj.near_, data_proj.far_);
 }
+
+void Scene::mousePressEvent(QMouseEvent* event)
+{
+    Resources::MOUSE()->Update(event);
+    press_mouse = true;
+    last_point_mouse.setX(event->x());
+    last_point_mouse.setY(event->y());
+    qDebug()<<"mousePressEvent";
+    this->update();
+}
+
+void Scene::mouseReleaseEvent(QMouseEvent* event)
+{
+    Resources::MOUSE()->Update(event, false);
+    press_mouse = false;
+    qDebug()<<"mouseReleaseEvent";
+    this->update();
+}
+
+void Scene::mouseMoveEvent(QMouseEvent* event)
+{
+    Resources::MOUSE()->Update(event, false);
+    last_point_mouse.setX(current_point_mouse.x());
+    last_point_mouse.setY(current_point_mouse.y());
+    current_point_mouse.setX(event->x());
+    current_point_mouse.setY(event->y());
+    //qDebug()<<"mouseMoveEvent";
+    this->update();
+}
+
+void Scene::keyPressEvent(QKeyEvent* event)
+{
+    Resources::KEYBOARD()->Update(event);
+    qDebug()<<"keyPressEvent";
+}
+
+void Scene::keyReleaseEvent(QKeyEvent* event)
+{
+    Resources::KEYBOARD()->Update(event, false);
+    qDebug()<<"keyReleaseEvent";
+}
+

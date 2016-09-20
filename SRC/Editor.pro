@@ -97,3 +97,6 @@ FORMS    += mainform.ui \
     addspriteform.ui \
     setprojectionform.ui \
     creategameobject2dform.ui
+
+RESOURCES += \
+    resources.qrc

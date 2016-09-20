@@ -335,6 +335,24 @@ void MainForm::keyReleaseEvent(QKeyEvent* event)
     scene->update();
 }
 
+//Обработка нажатия клавишы мыши
+void MainForm::mousePressEvent(QMouseEvent* event)
+{
+
+}
+
+//Обработка отжатия клавишы мыши
+void MainForm::mouseReleaseEvent(QMouseEvent* event)
+{
+
+}
+
+//Обработка движения мыши
+void MainForm::mouseMoveEvent(QMouseEvent* event)
+{
+
+}
+
 //Изменение активной сцены
 void MainForm::on_tabWidget_currentChanged(int index)
 {
@@ -389,7 +407,7 @@ void MainForm::on_pushButton_clicked()
 //Выбран GameObject !!!Доделать нормально
 void MainForm::on_treeWidget_gameobject_itemActivated(QTreeWidgetItem *item, int column)
 {
-    qDebug()<<item->data(0,Qt::DisplayRole);
+    //qDebug()<<item->data(0,Qt::DisplayRole);
     GameObject2D* obj = (GameObject2D*)Resources::GAMEOBJECT()->GetValue(item->data(0,Qt::DisplayRole).toString());
     QHash<QString, QString>::iterator it = obj->property.begin();
     ui->treeWidget_property->clear();
@@ -409,11 +427,11 @@ void MainForm::on_treeWidget_property_itemChanged(QTreeWidgetItem *item, int col
 {
     if(column==0)
         return;
-    qDebug()<<"Property Changer";
+    //qDebug()<<"Property Changer";
     GameObject2D* obj = (GameObject2D*)Resources::GAMEOBJECT()->GetValue(ui->treeWidget_gameobject->currentItem()->data(0, Qt::DisplayRole).toString());
 
-    qDebug()<<item->data(0, Qt::DisplayRole);
-    qDebug()<<item->data(1, Qt::DisplayRole);
+    //qDebug()<<item->data(0, Qt::DisplayRole);
+    //qDebug()<<item->data(1, Qt::DisplayRole);
 
     if (item->data(0, Qt::DisplayRole)=="pos_x")
         obj->SetPosX(item->data(1, Qt::DisplayRole).toFloat());
