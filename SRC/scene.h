@@ -4,7 +4,9 @@
 #include <QtOpenGL/QGLWidget>
 //#include <QOpenGLWidget>
 #include <QOpenGLFunctions>
+#include <GL/glu.h>
 
+#include "define.h"
 #include "setprojectionform.h"
 
 #ifdef Q_OS_LINUX
@@ -14,6 +16,7 @@
 #ifdef Q_OS_WIN32
     #include "Engine/resources.h"
 #endif
+
 
 class Scene:public QGLWidget, public QOpenGLFunctions
 {
@@ -32,9 +35,13 @@ protected:
     void mousePressEvent(QMouseEvent* event);
     void mouseReleaseEvent(QMouseEvent* event);
     void mouseMoveEvent(QMouseEvent* event);
+    void wheelEvent(QWheelEvent* event);
 
     void keyPressEvent(QKeyEvent* event);
     void keyReleaseEvent(QKeyEvent* event);
+
+public:
+    Mode_Cursor current_mode;
 
 private:
     QString key;
@@ -42,7 +49,8 @@ private:
     QMatrix4x4 projection;
     QPoint last_point_mouse;
     QPoint current_point_mouse;
-    bool press_mouse;
+    bool press_left_mouse;
+    bool press_middle_mouse;
 };
 
 #endif // SCENE_H

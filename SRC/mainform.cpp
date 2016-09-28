@@ -439,8 +439,46 @@ void MainForm::on_treeWidget_property_itemChanged(QTreeWidgetItem *item, int col
         obj->SetPosY(item->data(1, Qt::DisplayRole).toFloat());
     if (item->data(0, Qt::DisplayRole)=="pos_z")
         obj->SetPosZ(item->data(1, Qt::DisplayRole).toFloat());
+    if (item->data(0, Qt::DisplayRole)=="scal_x")
+        obj->SetScalX(item->data(1, Qt::DisplayRole).toFloat());
+    if (item->data(0, Qt::DisplayRole)=="scal_y")
+        obj->SetScalY(item->data(1, Qt::DisplayRole).toFloat());
+    if (item->data(0, Qt::DisplayRole)=="scal_z")
+        obj->SetScalZ(item->data(1, Qt::DisplayRole).toFloat());
+    if (item->data(0, Qt::DisplayRole)=="rot_x")
+        obj->SetRotX(item->data(1, Qt::DisplayRole).toFloat());
+    if (item->data(0, Qt::DisplayRole)=="rot_y")
+        obj->SetRotY(item->data(1, Qt::DisplayRole).toFloat());
+    if (item->data(0, Qt::DisplayRole)=="rot_z")
+        obj->SetRotZ(item->data(1, Qt::DisplayRole).toFloat());
+    if (item->data(0, Qt::DisplayRole)=="piv_x")
+        obj->SetPivotX(item->data(1, Qt::DisplayRole).toFloat());
+    if (item->data(0, Qt::DisplayRole)=="piv_y")
+        obj->SetPivotY(item->data(1, Qt::DisplayRole).toFloat());
+    if (item->data(0, Qt::DisplayRole)=="piv_z")
+        obj->SetPivotZ(item->data(1, Qt::DisplayRole).toFloat());
     else
     {
         obj->property.insert(item->data(0, Qt::DisplayRole).toString(), item->data(1, Qt::DisplayRole).toString());
     }
+}
+
+//Режим Панарама
+void MainForm::on_panaram_object_triggered()
+{
+    QCursor cursor;
+    cursor.setShape(Qt::OpenHandCursor);
+    ui->tabWidget->setCursor(cursor);
+    Scene* scene = (Scene*)ui->tabWidget->currentWidget()->children().at(1);
+    scene->current_mode = Panaram_Mode_Cursor;
+}
+
+//Режим Выбор
+void MainForm::on_select_object_triggered()
+{
+    QCursor cursor;
+    cursor.setShape(Qt::ArrowCursor);
+    ui->tabWidget->setCursor(cursor);
+    Scene* scene = (Scene*)ui->tabWidget->currentWidget()->children().at(1);
+    scene->current_mode = Select_Mode_Cursor;
 }

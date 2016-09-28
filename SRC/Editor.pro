@@ -6,6 +6,8 @@
 
 QT       += core gui opengl
 
+LIBS += -lglu32
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Editor
@@ -88,7 +90,8 @@ HEADERS  += mainform.h \
     Engine/sprite.h \
     Engine/texture.h \
     Engine/tilemap.h \
-    Engine/transformer.h
+    Engine/transformer.h \
+    define.h
 
 FORMS    += mainform.ui \
     previewtextureform.ui \

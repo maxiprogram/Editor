@@ -24,7 +24,7 @@ void GameObject2D::Update(float dt)
 void GameObject2D::Draw()
 {
     ///*Вывод на экран
-    Resources::SPRITE()->GetValue(property.value("id_sprite").toInt())->Bind(256, 256);
+    Resources::SPRITE()->GetValue(property.value("id_sprite").toInt())->Bind();
     Resources::SPRITE()->GetValue(property.value("id_sprite").toInt())->GetShader()->setUniformValue(Resources::SPRITE()->GetValue(property.value("id_sprite").toInt())->GetShader()->GetNameMatrixPos().toStdString().c_str(),
                                                                                     Setting::GetProjection() *
                                                                                     Resources::CAMERA()->GetCurrentCamera()->GetMatrix() *

@@ -13,6 +13,7 @@
 #include "setprojectionform.h"
 #include "creategameobject2dform.h"
 
+#include "define.h"
 #include "scene.h"
 
 #ifdef Q_OS_LINUX
@@ -100,6 +101,10 @@ private slots:
     void on_treeWidget_gameobject_itemActivated(QTreeWidgetItem *item, int column);
 
     void on_treeWidget_property_itemChanged(QTreeWidgetItem *item, int column);
+
+    void on_panaram_object_triggered();
+
+    void on_select_object_triggered();
 
 signals:
     void send_tree_shader(QTreeWidget* tree_shader);

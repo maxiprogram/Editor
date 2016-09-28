@@ -25,6 +25,15 @@ void CreateGameObject2DForm::on_pushButton_clicked()
     property.insert("pos_x", "0");
     property.insert("pos_y", "0");
     property.insert("pos_z", "0");
+    property.insert("scal_x", "1");
+    property.insert("scal_y", "1");
+    property.insert("scal_z", "1");
+    property.insert("rot_x", "0");
+    property.insert("rot_y", "0");
+    property.insert("rot_z", "0");
+    property.insert("piv_x", "0");
+    property.insert("piv_y", "0");
+    property.insert("piv_z", "0");
 
     GameObject* obj = new GameObject2D;
     obj->SetName(ui->lineEdit_name->text());
